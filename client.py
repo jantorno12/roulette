@@ -1,6 +1,6 @@
 import socket
 
-HEADER = 64
+HEADER = 32
 PORT = 5050
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECT"
@@ -10,7 +10,15 @@ ADDR = (SERVER, PORT)
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(ADDR)
 
-def send(msg):
+def sendheader(msg):
+    message = msg.encode(FORMAT)
+    # msg_length = len(message)
+    # send_length = str(msg_length).encode(FORMAT)
+    message += b' ' * (HEADER - len(message))
+    # client.sendall(send_length)
+    client.sendall(message)
+
+def sendpackage(msg):
     message = msg.encode(FORMAT)
     msg_length = len(message)
     send_length = str(msg_length).encode(FORMAT)
@@ -19,10 +27,20 @@ def send(msg):
     client.sendall(message)
     print(client.recv(2048).decode(FORMAT))
 
-dict = {'Jantorno': 'Forte', 'Bernardo': 'Fraco'}
-send(str(dict))
-input()
-send("Hello Everyone!")
-send("Hello Tim!")
+def sendbet(msg):
+    sendheader('BET')
+    sendpackage(str(3))
 
-send(DISCONNECT_MESSAGE)
+def sendspin(msg):
+    message = msg.encode(FORMAT)
+
+
+def senddisconnect(msg):
+    sendheader(DISCONNECT_MESSAGE)
+
+sendbet(3)
+# send(str(dict))
+# input()
+# send("Hello Everyone!")
+# send("Hello Tim!")
+# send(DISCONNECT_MESSAGE)

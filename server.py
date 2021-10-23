@@ -1,7 +1,7 @@
 import socket 
 import ast
 
-HEADER = 64
+HEADER = 32
 PORT = 5050
 SERVER = socket.gethostbyname(socket.gethostname())
 ADDR = (SERVER, PORT)
@@ -16,15 +16,24 @@ def play_roulette(conn, addr):
 
     connected = True
     while connected:
-        msg_length = conn.recv(HEADER).decode(FORMAT)
-        if msg_length:
-            msg_length = int(msg_length)
-            msg = conn.recv(msg_length).decode(FORMAT)
-            print(msg[0])
-            dict = ast.literal_eval(msg)
-            print(dict['Jantorno'])
-            print(dict['Bernardo'])
-            if msg == DISCONNECT_MESSAGE:
+        action_type = conn.recv(HEADER).decode(FORMAT)
+        print(action_type)
+        if action_type:
+            if action_type == 'BET':
+                msg_length = conn.recv(HEADER).decode(FORMAT)
+                msg_length = int(msg_length)
+                msg = conn.recv(msg_length).decode(FORMAT)
+                print(int(msg))
+            if action_type == 'SPIN':
+                print("oi")
+            # msg_length = conn.recv(HEADER).decode(FORMAT)
+            # msg_length = int(msg_length)
+            # msg = conn.recv(msg_length).decode(FORMAT)
+            # print(msg[0])
+            # dict = ast.literal_eval(msg)
+            # print(dict['Jantorno'])
+            # print(dict['Bernardo'])
+            if action_type == DISCONNECT_MESSAGE:
                 connected = False
 
             print(f"[{addr}] {msg}")
