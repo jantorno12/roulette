@@ -1,4 +1,5 @@
 import socket
+import time
 
 HEADER = 32
 PORT = 5050
@@ -35,10 +36,12 @@ def sendspin(msg):
     message = msg.encode(FORMAT)
 
 
-def senddisconnect(msg):
+def senddisconnect():
     sendheader(DISCONNECT_MESSAGE)
 
 sendbet(3)
+input()
+senddisconnect()
 # send(str(dict))
 # input()
 # send("Hello Everyone!")

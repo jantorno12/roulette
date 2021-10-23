@@ -11,6 +11,13 @@ DISCONNECT_MESSAGE = "!DISCONNECT"
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDR)
 
+def excludespace(strx):
+    str_aux = ''
+    for i in range(len(strx)):
+        if(strx[i] != ' '):
+            str_aux = str_aux + strx[i]
+    return str_aux
+
 def play_roulette(conn, addr):
     print(f"[NEW CONNECTION] {addr} connected.")
 
@@ -19,12 +26,14 @@ def play_roulette(conn, addr):
         action_type = conn.recv(HEADER).decode(FORMAT)
         print(action_type)
         if action_type:
-            if action_type == 'BET':
+
+            if excludespace(action_type) == 'BET':
                 msg_length = conn.recv(HEADER).decode(FORMAT)
-                msg_length = int(msg_length)
+                msg_length = int(excludespace(msg_length))
                 msg = conn.recv(msg_length).decode(FORMAT)
-                print(int(msg))
-            if action_type == 'SPIN':
+                print(msg[0])
+                print(len(msg))
+            if excludespace(action_type) == 'SPIN':
                 print("oi")
             # msg_length = conn.recv(HEADER).decode(FORMAT)
             # msg_length = int(msg_length)
@@ -33,10 +42,9 @@ def play_roulette(conn, addr):
             # dict = ast.literal_eval(msg)
             # print(dict['Jantorno'])
             # print(dict['Bernardo'])
-            if action_type == DISCONNECT_MESSAGE:
+            if excludespace(action_type) == DISCONNECT_MESSAGE:
                 connected = False
 
-            print(f"[{addr}] {msg}")
             conn.sendall("Msg received".encode(FORMAT))
     conn.close()
         
