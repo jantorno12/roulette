@@ -1,7 +1,7 @@
 import socket
 
 HEADER = 32
-PORT = 5050
+PORT = 5060
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECT"
 SERVER = socket.gethostbyname(socket.gethostname())
@@ -35,10 +35,11 @@ def sendspin(msg):
     message = msg.encode(FORMAT)
 
 
-def senddisconnect(msg):
+def senddisconnect():
     sendheader(DISCONNECT_MESSAGE)
 
 sendbet(3)
+senddisconnect()
 # send(str(dict))
 # input()
 # send("Hello Everyone!")

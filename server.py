@@ -2,7 +2,7 @@ import socket
 import ast
 
 HEADER = 32
-PORT = 5050
+PORT = 5060
 SERVER = socket.gethostbyname(socket.gethostname())
 ADDR = (SERVER, PORT)
 FORMAT = 'utf-8'
@@ -13,7 +13,6 @@ server.bind(ADDR)
 
 def play_roulette(conn, addr):
     print(f"[NEW CONNECTION] {addr} connected.")
-
     connected = True
     while connected:
         action_type = conn.recv(HEADER).decode(FORMAT)
@@ -36,7 +35,6 @@ def play_roulette(conn, addr):
             if action_type == DISCONNECT_MESSAGE:
                 connected = False
 
-            print(f"[{addr}] {msg}")
             conn.sendall("Msg received".encode(FORMAT))
     conn.close()
         
