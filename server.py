@@ -2,7 +2,7 @@ import socket
 import ast
 
 HEADER = 32
-PORT = 5050
+PORT = 5060
 SERVER = socket.gethostbyname(socket.gethostname())
 ADDR = (SERVER, PORT)
 FORMAT = 'utf-8'
@@ -20,7 +20,6 @@ def excludespace(strx):
 
 def play_roulette(conn, addr):
     print(f"[NEW CONNECTION] {addr} connected.")
-
     connected = True
     while connected:
         action_type = conn.recv(HEADER).decode(FORMAT)

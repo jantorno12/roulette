@@ -2,7 +2,7 @@ import socket
 import time
 
 HEADER = 32
-PORT = 5050
+PORT = 5060
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECT"
 SERVER = socket.gethostbyname(socket.gethostname())
@@ -41,7 +41,8 @@ def senddisconnect():
 
 sendbet(3)
 input()
-senddisconnect()
+senddisconnect() 
+
 # send(str(dict))
 # input()
 # send("Hello Everyone!")
