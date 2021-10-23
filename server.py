@@ -23,7 +23,7 @@ def play_roulette(conn, addr):
             print(msg[0])
             dict = ast.literal_eval(msg)
             print(dict['Jantorno'])
-            print(dict['Tepedino'])
+            print(dict['Bernardo'])
             if msg == DISCONNECT_MESSAGE:
                 connected = False
 
