@@ -31,7 +31,6 @@ def play_roulette(conn, addr):
                 msg_length = int(excludespace(msg_length))
                 msg = conn.recv(msg_length).decode(FORMAT)
                 print(msg[0])
-                print(len(msg))
             if excludespace(action_type) == 'SPIN':
                 print("oi")
             # msg_length = conn.recv(HEADER).decode(FORMAT)
