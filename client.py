@@ -40,44 +40,49 @@ def sendpackage(msg):
     send_length += b' ' * (HEADER - len(send_length))
     client.sendall(send_length)
     client.sendall(message)
-    rec_ans()
+    dict = rec_ans()
+    return dict
     # print(client.recv(2048).decode(FORMAT))
 
 def sendbet(msg):
     sendheader('BET')
-    sendpackage(str(msg))
+    dict = sendpackage(str(msg))
+    print(dict)
+    if (dict['resposta'] == 'Aposta invalida'):
+        print('Valor incompativel')
+        print('Aposte outro valor')
+        msg2 = input()
+        return sendbet(msg2)
+    else:
+        print('Insira sua aposta')
+        msg3 = input()
+        return sendspin(msg3)
 
 def rec_ans():
     msg = trata_msg()
     dict = ast.literal_eval(msg)
-    if (dict['resposta'] == 'Aposta invalida'):
-        print(dict)
-    
-    
+    return dict
+
 def sendspin(msg):
     sendheader('SPIN')
-    sendpackage(str(msg))
-
+    dict = sendpackage(str(msg))
+    if (dict['resultado'] == 'Perdeu'):
+        print('Perdeu a aposta')
+    else:
+        print('Ganhou a aposta')
+    print(dict)
+    return dict['cliente']
+        
 def senddisconnect():
     sendheader(DISCONNECT_MESSAGE)
 
-sendbet(3)
-input()
-sendspin(42)
-input()
-senddisconnect() 
+m2 = 1
+m3 = 1
+while (m2 != '0' and m3 != 0):
+    print('Defina o valor da aposta:')
+    m1 = input()
+    m3 = sendbet(m1)
+    print('Se deseja parar, digite 0')
+    m2 = input()
+senddisconnect()
 
-# send(str(dict))
-# input()
-# send("Hello Everyone!")
-# send("Hello Tim!")
-# send(DISCONNECT_MESSAGE)
-
-
-# msg_length = conn.recv(HEADER).decode(FORMAT)
-        # msg_length = int(msg_length)
-            # msg = conn.recv(msg_length).decode(FORMAT)
-            # print(msg[0])
-            # dict = ast.literal_eval(msg)
-            # print(dict['Jantorno'])
-            # print(dict['Bernardo'])
