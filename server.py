@@ -74,9 +74,8 @@ def sendpackage(client, msg):
     send_length += b' ' * (HEADER - len(send_length))
     client.sendall(send_length)
     client.sendall(message)
-    print(client.recv(2048).decode(FORMAT))
 
-def play_roulette(conn, addr, saldo):
+def play_roulette(conn, addr, status):
     print(f"[NEW CONNECTION] {addr} connected.")
     connected = True
     while connected:
@@ -85,14 +84,14 @@ def play_roulette(conn, addr, saldo):
         if action_type:
             if excludespace(action_type) == 'BET':
                 msg = trata_msg(conn)
-                bet, ans = check_bet(saldo ,int(msg))
-                aux_dict = saldo
+                bet, ans = check_bet(status ,int(msg))
+                aux_dict = status
                 aux_dict['resposta'] = ans
-                sendpackage(conn, str(aux_dict))
+                # sendpackage(conn, str(aux_dict))
 
             if excludespace(action_type) == 'SPIN':
                 msg = trata_msg(conn)
-                saldo = type_bet(saldo, int(msg))
+                status = type_bet(status, int(msg))
 
             if excludespace(action_type) == DISCONNECT_MESSAGE:
                 connected = False
