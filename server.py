@@ -23,14 +23,15 @@ def play_roulette(conn, addr):
     connected = True
     while connected:
         action_type = conn.recv(HEADER).decode(FORMAT)
-        print(action_type)
+        print(f'Tipo de comando: {action_type}')
         if action_type:
 
             if excludespace(action_type) == 'BET':
                 msg_length = conn.recv(HEADER).decode(FORMAT)
                 msg_length = int(excludespace(msg_length))
                 msg = conn.recv(msg_length).decode(FORMAT)
-                print(msg[0])
+                print(f'Valor enviado para aposta: {int(msg)}')
+                print("Valor válido!")
             if excludespace(action_type) == 'SPIN':
                 print("oi")
             # msg_length = conn.recv(HEADER).decode(FORMAT)
@@ -44,6 +45,7 @@ def play_roulette(conn, addr):
                 connected = False
 
             conn.sendall("Msg received".encode(FORMAT))
+    print("Partida encerrada")
     conn.close()
         
 

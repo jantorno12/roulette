@@ -40,7 +40,7 @@ def senddisconnect():
     sendheader(DISCONNECT_MESSAGE)
 
 sendbet(3)
-input()
+raw_input()
 senddisconnect() 
 
 # send(str(dict))
