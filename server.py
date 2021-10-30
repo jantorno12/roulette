@@ -31,6 +31,8 @@ def type_bet(dict, tipo):
     resp = random.randint(-1, 36)
     red = [1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]
     black = [2,4,6,8,10,11,13,15,17,20,22,24,26,28,29,31,33,35]
+    if (resp == -1 or resp == 0):
+        return lose_bet(dict)
     if(tipo < 37):
         print(f'Foi apostado no numero {tipo}')
         if (tipo ==  resp):
