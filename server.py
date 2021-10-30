@@ -87,7 +87,7 @@ def play_roulette(conn, addr, status):
                 bet, ans = check_bet(status ,int(msg))
                 aux_dict = status
                 aux_dict['resposta'] = ans
-                # sendpackage(conn, str(aux_dict))
+                sendpackage(conn, str(aux_dict))
 
             if excludespace(action_type) == 'SPIN':
                 msg = trata_msg(conn)
