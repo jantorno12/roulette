@@ -14,7 +14,7 @@ saldo = {'cliente' : 1000, 'servidor': 1000}
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDR)
 
-def type_bet(tipo):
+def type_bet(dict, tipo):
     resp = random.randint(-1, 36)
     if(tipo < 37):
         print(f'Foi apostado no numero {tipo}')
@@ -76,7 +76,7 @@ def sendpackage(client, msg):
     client.sendall(message)
     print(client.recv(2048).decode(FORMAT))
 
-def play_roulette(conn, addr):
+def play_roulette(conn, addr, saldo):
     print(f"[NEW CONNECTION] {addr} connected.")
     connected = True
     while connected:
@@ -85,7 +85,7 @@ def play_roulette(conn, addr):
         if action_type:
             if excludespace(action_type) == 'BET':
                 msg = trata_msg(conn)
-                saldo, ans = check_bet(int(msg))
+                saldo, ans = check_bet(saldo ,int(msg))
                 aux_dict = saldo
                 aux_dict['resposta'] = ans
 
@@ -111,8 +111,9 @@ def start():
     server.listen()
     print(f"[LISTENING] Server is listening on {SERVER}")
     #Botar multi tread se quiser
+    saldo = {'cliente' : 1000, 'servidor': 1000}
     conn, addr = server.accept()
-    play_roulette(conn,addr)
+    play_roulette(conn,addr, saldo)
 
 
 print("[STARTING] server is starting...")
