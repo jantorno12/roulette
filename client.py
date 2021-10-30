@@ -30,16 +30,18 @@ def sendpackage(msg):
 
 def sendbet(msg):
     sendheader('BET')
-    sendpackage(str(3))
+    sendpackage(str(msg))
 
 def sendspin(msg):
-    message = msg.encode(FORMAT)
-
+    sendheader('SPIN')
+    sendpackage(str(msg))
 
 def senddisconnect():
     sendheader(DISCONNECT_MESSAGE)
 
 sendbet(3)
+raw_input()
+sendspin(42)
 raw_input()
 senddisconnect() 
 
@@ -48,3 +50,12 @@ senddisconnect()
 # send("Hello Everyone!")
 # send("Hello Tim!")
 # send(DISCONNECT_MESSAGE)
+
+
+# msg_length = conn.recv(HEADER).decode(FORMAT)
+        # msg_length = int(msg_length)
+            # msg = conn.recv(msg_length).decode(FORMAT)
+            # print(msg[0])
+            # dict = ast.literal_eval(msg)
+            # print(dict['Jantorno'])
+            # print(dict['Bernardo'])
