@@ -46,13 +46,13 @@ def type_bet(dict, tipo):
 def check_bet(dict, bet):
     print(f'Valor enviado para aposta: {int(bet)}')
     # checando o valor da aposta
-    if(bet < min_bet):
-        return dict, 'Aposta invalida'
+    ult_saldo = dict['cliente']
+    if(bet < min_bet or bet > ult_saldo):
+        print(f'Aposta invalida')
+        return 0, 'Aposta invalida'
     else:
-        ult_saldo = dict['cliente']
-        dict['cliente'] = ult_saldo - bet
-        return dict, 'Aposta valida'
-
+        print(f'Aposta valida')
+        return bet, 'Aposta valida'
 
 def excludespace(strx):
     str_aux = ''
@@ -85,20 +85,15 @@ def play_roulette(conn, addr, saldo):
         if action_type:
             if excludespace(action_type) == 'BET':
                 msg = trata_msg(conn)
-                saldo, ans = check_bet(saldo ,int(msg))
+                bet, ans = check_bet(saldo ,int(msg))
                 aux_dict = saldo
                 aux_dict['resposta'] = ans
+                sendpackage(conn, str(aux_dict))
 
             if excludespace(action_type) == 'SPIN':
                 msg = trata_msg(conn)
                 saldo = type_bet(saldo, int(msg))
-            # msg_length = conn.recv(HEADER).decode(FORMAT)
-            # msg_length = int(msg_length)
-            # msg = conn.recv(msg_length).decode(FORMAT)
-            # print(msg[0])
-            # dict = ast.literal_eval(msg)
-            # print(dict['Jantorno'])
-            # print(dict['Bernardo'])
+
             if excludespace(action_type) == DISCONNECT_MESSAGE:
                 connected = False
 
@@ -111,7 +106,7 @@ def start():
     server.listen()
     print(f"[LISTENING] Server is listening on {SERVER}")
     #Botar multi tread se quiser
-    saldo = {'cliente' : 1000, 'servidor': 1000}
+    saldo = {'cliente' : 1000, 'mesa': 1000}
     conn, addr = server.accept()
     play_roulette(conn,addr, saldo)
 
