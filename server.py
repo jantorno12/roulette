@@ -84,7 +84,7 @@ def play_roulette(conn, addr, status):
         if action_type:
             if excludespace(action_type) == 'BET':
                 msg = trata_msg(conn)
-                bet, ans = check_bet(status ,int(msg))
+                status['bet'], ans = check_bet(status ,int(msg))
                 aux_dict = status
                 aux_dict['resposta'] = ans
                 sendpackage(conn, str(aux_dict))
@@ -92,6 +92,7 @@ def play_roulette(conn, addr, status):
             if excludespace(action_type) == 'SPIN':
                 msg = trata_msg(conn)
                 status = type_bet(status, int(msg))
+                
 
             if excludespace(action_type) == DISCONNECT_MESSAGE:
                 connected = False
