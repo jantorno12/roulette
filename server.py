@@ -96,7 +96,7 @@ def play_roulette(conn, addr, status):
             if excludespace(action_type) == DISCONNECT_MESSAGE:
                 connected = False
 
-            conn.sendall("Msg received".encode(FORMAT))
+            # conn.sendall("Msg received".encode(FORMAT))
     print("Partida encerrada")
     conn.close()
         
