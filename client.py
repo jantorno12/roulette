@@ -81,7 +81,7 @@ m3 = 1
 while (m2 != '0' and m3 != 0):
     print('Defina o valor da aposta:')
     m1 = input()
-    m3 = sendbet(m1)
+    m3 = sendbet(int(m1))
     print('Se deseja parar, digite 0')
     m2 = input()
 senddisconnect()
