@@ -333,22 +333,6 @@ def sendspin(msg):
         print('Ganhou a aposta')
     print(dict)
     return dict['cliente']
-<<<<<<< HEAD
-=======
-        
-def senddisconnect():
-    sendheader(DISCONNECT_MESSAGE)
-
-m2 = 1
-m3 = 1
-while (m2 != '0' and m3 != 0):
-    print('Defina o valor da aposta:')
-    m1 = input()
-    m3 = sendbet(int(m1))
-    print('Se deseja parar, digite 0')
-    m2 = input()
-senddisconnect()
->>>>>>> 3d97dc22626a0d0f6ab9ef04b7371067746c6364
 
 if __name__ == "__main__":
     saldo = 1000
@@ -361,3 +345,4 @@ if __name__ == "__main__":
             break
     senddisconnect()
     sys.exit()
+
